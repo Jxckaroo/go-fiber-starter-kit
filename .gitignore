@@ -19,3 +19,6 @@ go.work
 
 # Env file
 .env
+
+# IDE
+.idea/

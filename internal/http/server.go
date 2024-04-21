@@ -1,9 +1,11 @@
 package http
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/Jxckaroo/go-fiber-starter-kit/config"
 	"github.com/gofiber/fiber/v3"
-	"time"
 )
 
 func NewInstance(c *config.Config) *fiber.App {
@@ -14,4 +16,8 @@ func NewInstance(c *config.Config) *fiber.App {
 			IdleTimeout:  c.App.IdleTimeout * time.Second,
 		},
 	)
+}
+
+func StartServer() {
+	fmt.Println("starting http server")
 }

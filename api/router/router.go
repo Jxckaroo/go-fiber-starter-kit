@@ -16,3 +16,10 @@ func NewRouter(fiber *fiber.App, config *config.Config) *Router {
 		Config: config,
 	}
 }
+
+func (r *Router) RegisterRoutes() {
+	// Test Routes
+	r.App.Get("/ping", func(c fiber.Ctx) error {
+		return c.SendString("Pong! 👋")
+	})
+}

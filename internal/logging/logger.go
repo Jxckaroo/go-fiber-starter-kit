@@ -1,11 +1,12 @@
 package logging
 
 import (
+	"os"
+
 	"github.com/Jxckaroo/go-fiber-starter-kit/config"
 	"github.com/gofiber/fiber/v3"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"os"
 )
 
 func NewLogger(cfg *config.Config) zerolog.Logger {

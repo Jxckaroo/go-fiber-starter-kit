@@ -2,15 +2,17 @@ package config
 
 import (
 	"context"
-	"github.com/joho/godotenv"
-	"github.com/sethvargo/go-envconfig"
 	"log"
 	"time"
+
+	"github.com/joho/godotenv"
+	"github.com/sethvargo/go-envconfig"
 )
 
 type Config struct {
 	App struct {
 		Name        string        `env:"APP_NAME"`
+		Host        string        `env:"APP_HOST"`
 		Port        string        `env:"APP_PORT"`
 		IdleTimeout time.Duration `env:"APP_IDLE_TIMEOUT"`
 		PrintRoutes bool          `env:"APP_PRINT_ROUTES"`
@@ -48,11 +50,11 @@ type Config struct {
 		Limiter struct {
 			Enable            bool          `env:"MIDDLEWARE_LIMITER_ENABLE"`
 			Max               int           `env:"MIDDLEWARE_LIMITER_MAX"`
-			ExpirationSeconds time.Duration `env:"MIDDLEWARE_LIMITER_EXPIRATION_SECONDS"`
+			Expiration time.Duration `env:"MIDDLEWARE_LIMITER_EXPIRATION"`
 		}
 		Jwt struct {
 			Secret            string        `env:"MIDDLEWARE_JWT_SECRET"`
-			ExpirationSeconds time.Duration `env:"MIDDLEWARE_JWT_EXPIRATION_SECONDS"`
+			Expiration time.Duration `env:"MIDDLEWARE_JWT_EXPIRATION"`
 		}
 		FileSystem struct {
 			Enable bool   `env:"MIDDLEWARE_FILESYSTEM_ENABLE"`

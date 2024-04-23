@@ -2,8 +2,10 @@ package http
 
 import (
 	"context"
+	"github.com/gofiber/utils/v2"
 	"os"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/Jxckaroo/go-fiber-starter-kit/api/middleware"
@@ -30,7 +32,7 @@ func StartServer(
 	config *config.Config,
 	fiber *fiber.App,
 	router *router.Router,
-	middlewares *middleware.Middleware,
+	middleware *middleware.Middleware,
 	database *database.Database,
 	log zerolog.Logger,
 ) {
@@ -39,15 +41,18 @@ func StartServer(
 			OnStart: func(ctx context.Context) error {
 				host, port := config.App.Host, config.App.Port
 
-				// // ASCII Art
-				// ascii, err := os.ReadFile("./storage/ascii_art.txt")
-				// if err != nil {
-				// 	log.Debug().Err(err).Msg("An unknown error occurred when to print ASCII art!")
-				// }
+				middleware.Register()
+				router.RegisterRoutes()
 
-				// for _, line := range strings.Split(futils.UnsafeString(ascii), "\n") {
-				// 	log.Info().Msg(line)
-				// }
+				// ASCII Art
+				ascii, err := os.ReadFile("./storage/ascii_art.txt")
+				if err != nil {
+					log.Debug().Err(err).Msg("An unknown error occurred when to print ASCII art!")
+				}
+
+				for _, line := range strings.Split(utils.UnsafeString(ascii), "\n") {
+					log.Info().Msg(line)
+				}
 
 				log.Info().Msg(fiber.Config().AppName + " is running at the moment!")
 
@@ -77,8 +82,8 @@ func StartServer(
 					// }
 
 					go func() {
-						if err := fiber.Listen(host + ":" + port); err != nil {
-							log.Error().Err(err).Msg("An unknown error occurred when to run server!")
+						if fiberErr := fiber.Listen(host + ":" + port); err != nil {
+							log.Error().Err(fiberErr).Msg("An unknown error occurred when to run server!")
 						}
 					}()
 

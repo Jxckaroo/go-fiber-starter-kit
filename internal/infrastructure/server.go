@@ -1,4 +1,4 @@
-package http
+package infrastructure
 
 import (
 	"context"
@@ -17,7 +17,7 @@ import (
 	"go.uber.org/fx"
 )
 
-func NewInstance(c *config.Config) *fiber.App {
+func New(c *config.Config) *fiber.App {
 	return fiber.New(
 		fiber.Config{
 			ServerHeader: c.App.Name,
@@ -27,7 +27,7 @@ func NewInstance(c *config.Config) *fiber.App {
 	)
 }
 
-func StartServer(
+func Start(
 	lifecycle fx.Lifecycle,
 	config *config.Config,
 	fiber *fiber.App,

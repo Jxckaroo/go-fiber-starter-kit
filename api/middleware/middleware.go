@@ -17,7 +17,7 @@ type Middleware struct {
 	Config *config.Config
 }
 
-func NewMiddleware(app *fiber.App, config *config.Config) *Middleware {
+func New(app *fiber.App, config *config.Config) *Middleware {
 	return &Middleware{
 		App:    app,
 		Config: config,

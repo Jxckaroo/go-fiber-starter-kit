@@ -5,31 +5,30 @@ import (
 	"github.com/Jxckaroo/go-fiber-starter-kit/api/router"
 	"github.com/Jxckaroo/go-fiber-starter-kit/config"
 	"github.com/Jxckaroo/go-fiber-starter-kit/internal/database"
-	"github.com/Jxckaroo/go-fiber-starter-kit/internal/http"
+	"github.com/Jxckaroo/go-fiber-starter-kit/internal/infrastructure"
 	"github.com/Jxckaroo/go-fiber-starter-kit/internal/logging"
 	fxzerolog "github.com/efectn/fx-zerolog"
 	_ "go.uber.org/automaxprocs"
 	"go.uber.org/fx"
+	"slices"
 )
 
 func main() {
-	fx.New(
-		fx.Provide(config.NewConfig),
+	bootstrap := []fx.Option{
+		fx.Provide(config.New),
+		fx.Provide(logging.New),
+		fx.Provide(infrastructure.New),
+		fx.Provide(database.New),
+		fx.Provide(middleware.New),
+		fx.Provide(router.New),
+	}
 
-		fx.Provide(logging.NewLogger),
+	modules := []fx.Option{}
 
-		fx.Provide(http.NewInstance),
-
-		fx.Provide(database.NewDatabase),
-
-		fx.Provide(middleware.NewMiddleware),
-
-		fx.Provide(router.NewRouter),
-
-		// modules load here
-
-		fx.Invoke(http.StartServer),
-
+	run := []fx.Option{
+		fx.Invoke(infrastructure.Start),
 		fx.WithLogger(fxzerolog.Init()),
-	).Run()
+	}
+
+	fx.New(slices.Concat(bootstrap, modules, run)...).Run()
 }

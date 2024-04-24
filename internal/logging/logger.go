@@ -9,7 +9,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func NewLogger(cfg *config.Config) zerolog.Logger {
+func New(cfg *config.Config) zerolog.Logger {
 	zerolog.TimeFieldFormat = cfg.Logger.TimeFormat
 
 	if cfg.Logger.Prettier {

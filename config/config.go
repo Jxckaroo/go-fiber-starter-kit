@@ -48,12 +48,12 @@ type Config struct {
 			Enable bool `env:"MIDDLEWARE_PPROF_ENABLE"`
 		}
 		Limiter struct {
-			Enable            bool          `env:"MIDDLEWARE_LIMITER_ENABLE"`
-			Max               int           `env:"MIDDLEWARE_LIMITER_MAX"`
+			Enable     bool          `env:"MIDDLEWARE_LIMITER_ENABLE"`
+			Max        int           `env:"MIDDLEWARE_LIMITER_MAX"`
 			Expiration time.Duration `env:"MIDDLEWARE_LIMITER_EXPIRATION"`
 		}
 		Jwt struct {
-			Secret            string        `env:"MIDDLEWARE_JWT_SECRET"`
+			Secret     string        `env:"MIDDLEWARE_JWT_SECRET"`
 			Expiration time.Duration `env:"MIDDLEWARE_JWT_EXPIRATION"`
 		}
 		FileSystem struct {
@@ -66,7 +66,7 @@ type Config struct {
 	}
 }
 
-func NewConfig() *Config {
+func New() *Config {
 	ctx := context.Background()
 
 	var c Config

@@ -12,7 +12,7 @@ type Database struct {
 	Config *config.Config
 }
 
-func NewDatabase(cfg *config.Config, logger zerolog.Logger) *Database {
+func New(cfg *config.Config, logger zerolog.Logger) *Database {
 	db := &Database{
 		Config: cfg,
 		Logger: logger,

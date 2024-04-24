@@ -10,7 +10,7 @@ type Router struct {
 	Config *config.Config
 }
 
-func NewRouter(fiber *fiber.App, config *config.Config) *Router {
+func New(fiber *fiber.App, config *config.Config) *Router {
 	return &Router{
 		App:    fiber,
 		Config: config,

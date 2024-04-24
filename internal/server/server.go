@@ -1,12 +1,13 @@
-package infrastructure
+package server
 
 import (
 	"context"
-	"github.com/gofiber/utils/v2"
 	"os"
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/gofiber/utils/v2"
 
 	"github.com/Jxckaroo/go-fiber-starter-kit/api/middleware"
 	"github.com/Jxckaroo/go-fiber-starter-kit/api/router"

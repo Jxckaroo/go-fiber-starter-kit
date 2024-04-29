@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/Jxckaroo/go-fiber-starter-kit/api/modules"
 	"github.com/Jxckaroo/go-fiber-starter-kit/config"
 	"github.com/gofiber/fiber/v3"
 )
@@ -22,4 +23,8 @@ func (r *Router) RegisterRoutes() {
 	r.App.Get("/ping", func(c fiber.Ctx) error {
 		return c.SendString("Pong! 👋")
 	})
+
+	for _, m := range modules.ToLoad() {
+		m.Routes()
+	}
 }

@@ -4,6 +4,7 @@ import (
 	"slices"
 
 	"github.com/Jxckaroo/go-fiber-starter-kit/api/middleware"
+	"github.com/Jxckaroo/go-fiber-starter-kit/api/modules"
 	"github.com/Jxckaroo/go-fiber-starter-kit/api/router"
 	"github.com/Jxckaroo/go-fiber-starter-kit/config"
 	"github.com/Jxckaroo/go-fiber-starter-kit/internal/database"
@@ -24,12 +25,21 @@ func main() {
 		fx.Provide(router.New),
 	}
 
-	modules := []fx.Option{}
+	apiModules := []fx.Option{}
+	for _, m := range modules.ToLoad() {
+		apiModules = append(apiModules, m.New())
+	}
 
 	run := []fx.Option{
 		fx.Invoke(server.Start),
 		fx.WithLogger(fxzerolog.Init()),
 	}
 
-	fx.New(slices.Concat(bootstrap, modules, run)...).Run()
+	fx.New(
+		slices.Concat(
+			bootstrap,
+			apiModules,
+			run,
+		)...,
+	).Run()
 }
